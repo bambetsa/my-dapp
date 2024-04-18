@@ -15,12 +15,32 @@ export async function analyzeSecurity(contractCode, transactionHash, transaction
     console.log("Received transaction details:", transactionDetails);
     // Call to the OpenAI API to create a new chat completion.
     // The assistant's detailed analysis will be generated based on the following messages.
+    var longString = ` 
+    Directions: put response in the following format: 
+    Transaction Details:\n
+    - From: \n
+    - To: \n
+    - Value: \n
+    - Gas Used: \n
+    - Gas Price: \n
+    - Transaction Type: \n\n
+    
+    Input Validation:\n\n\n
+   
+    Gas Limit Consideration:\n\n\n
+    
+    Attack Risks: list of risks of certain attacks, include whether risk of phishing attack\n\n\n   
+    
+    Recommendation: security recommendation\n
+    
+    return as plain text. insert new line where \n`;
+
     const response = await openai.chat.completions.create({
-      model: "gpt-3-turbo",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system", // System message to set the context for the AI.
-          content: "You are a helpful assistant trained in smart contract security. Analyze the given smart contract code and transaction details for potential security issues, vulnerabilities, or risks."
+          content: longString
         },
         {
           role: "user", // User message containing the actual data to analyze.
