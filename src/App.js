@@ -9,6 +9,11 @@ import { analyzeSecurity } from "./Chatgpt";
 // const MMSDK = new MetaMaskSDK();
 // const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
 
+// Temporary mock function to simulate behavior
+async function mockAnalyzeSecurity(contractCode, transactionHash, transactionDetails) {
+  console.log("Mock inputs received:", { contractCode, transactionHash, transactionDetails });
+  return "This is a simulated response based on mock input data.";
+}
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -72,10 +77,13 @@ function App() {
             }
   
             // Perform security analysis on the source code
+            console.log("Calling analyzeSecurity with", sourceCode, transactionHash, JSON.stringify(data.result));
             try {
+              console.log(sourceCode);
               const analysis = await analyzeSecurity(sourceCode, transactionHash, JSON.stringify(data.result)); // Utilizing the new analysis function
               setAnalysisResult(analysis);
             } catch (analysisError) {
+              console.error("Error during analysis:", analysisError);
               setError("Analysis failed: " + analysisError.message);
               setAnalysisResult("Analysis failed. Please try again.");
             }

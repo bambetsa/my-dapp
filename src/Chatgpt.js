@@ -10,6 +10,9 @@ const openai = new OpenAI({
 // Define an asynchronous function to analyze security vulnerabilities in a smart contract using the OpenAI API.
 export async function analyzeSecurity(contractCode, transactionHash, transactionDetails) {
   try {
+    console.log("Received contract code:", contractCode);
+    console.log("Received transaction hash:", transactionHash);
+    console.log("Received transaction details:", transactionDetails);
     // Call to the OpenAI API to create a new chat completion.
     // The assistant's detailed analysis will be generated based on the following messages.
     const response = await openai.chat.completions.create({
@@ -35,10 +38,18 @@ export async function analyzeSecurity(contractCode, transactionHash, transaction
       frequency_penalty: 0,
       presence_penalty: 0,
     });
-
+    console.log("API Response:", JSON.stringify(response, null, 2));
     // Extract and return the assistant's analysis from the response.
-    const analysis = response.data.choices[0].message.content;
-    return analysis;
+    // const analysis = response.data.choices[0].message.content;
+    // return analysis;
+    console.log("Received response from OpenAI:", response); // Immediately after receiving the response
+    const messages = response.choices[0].message.content;
+    console.log("Prepared messages for OpenAI:", messages); // After setting up messages array
+    // const assistantMessages = messages.filter(m => m.role === 'assistant');
+    // console.log("Filtered assistant messages:", assistantMessages); // After filtering messages
+    // const lastMessage = assistantMessages[assistantMessages.length - 1];
+    // console.log("Extracted analysis:", messages.content);
+    return messages;
 
   } catch (error) {
     // Log and rethrow the error if the API call fails.
@@ -46,4 +57,5 @@ export async function analyzeSecurity(contractCode, transactionHash, transaction
     throw error;
   }
 }
+
 
