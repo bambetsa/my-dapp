@@ -3,7 +3,7 @@ import OpenAI from "openai";
 
 // Initialize the OpenAI client with your API key and configure it to allow browser-side usage,
 const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY, 
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true // Enable the use of the API client directly in the browser - CONFIRM THIS!!!
 });
 
@@ -13,7 +13,7 @@ export async function analyzeSecurity(contractCode, transactionHash, transaction
     // Call to the OpenAI API to create a new chat completion.
     // The assistant's detailed analysis will be generated based on the following messages.
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo", 
+      model: "gpt-3-turbo",
       messages: [
         {
           role: "system", // System message to set the context for the AI.
@@ -30,10 +30,10 @@ export async function analyzeSecurity(contractCode, transactionHash, transaction
         // The assistant's detailed analysis will be generated based on the above messages.
       ],
       temperature: 0.7, // Sets the creativity level of the responses
-      max_tokens: 2048, 
-      top_p: 1, 
+      max_tokens: 2048,
+      top_p: 1,
       frequency_penalty: 0,
-      presence_penalty: 0, 
+      presence_penalty: 0,
     });
 
     // Extract and return the assistant's analysis from the response.
