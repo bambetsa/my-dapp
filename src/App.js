@@ -17,6 +17,7 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState('');
   const [structuredIssues, setStructuredIssues] = useState([]);
   const [modelVersion, setModelVersion] = useState(null);  // State to hold the selected model version
+  const [activeModel, setActiveModel] = useState(null);  // Track active model button
   const [riskScore, setRiskScore] = useState(0);
   const [error, setError] = useState('');
 
@@ -46,6 +47,7 @@ function App() {
   // Function to handle model selection
   const handleModelSelection = (version) => {
     setModelVersion(version);
+    setActiveModel(version);  // Set active model for visual feedback
   };
 
   // Check if MetaMask is connected and fetch the current account
@@ -192,18 +194,26 @@ function App() {
           onChange={(e) => setTransactionHash(e.target.value)}
           placeholder="Enter transaction hash"
         />
-        {/* Model selection buttons */}
+        {error && <p className="status-message error">{error}</p>}
         <div className="button-group">
-          <button className="model-button purple" onClick={() => handleModelSelection("gpt-3.5-turbo")}>Use ChatGPT 3.5</button>
-          <button className="model-button green" onClick={() => handleModelSelection("gpt-4")}>Use ChatGPT 4</button>
+          <button
+            type="button"
+            className={`model-button purple ${activeModel === "gpt-3.5-turbo" ? "active" : ""}`}
+            onClick={() => handleModelSelection("gpt-3.5-turbo")}
+          >
+            Select ChatGPT 3.5
+          </button>
+          <button
+            type="button"
+            className={`model-button green ${activeModel === "gpt-4" ? "active" : ""}`}
+            onClick={() => handleModelSelection("gpt-4")}
+          >
+            Select ChatGPT 4
+          </button>
         </div>
-        {/* Submit button aligned to the right */}
-        <div className="submit-button-container">
-          <button type="submit" disabled={checkingTransaction || !isConnected}>Check Transaction</button>
-        </div>
+        <button type="submit" disabled={checkingTransaction || !isConnected}>Check Transaction</button>
       </form>
       
-      {error && <p className="status-message error">{error}</p>}
       {checkingTransaction && <p className="status-message">Checking transaction
       <span className="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>}
       {transactionDetails && (
@@ -220,7 +230,6 @@ function App() {
           <div className="risk-indicator-bar">
             <div className="risk-indicator" style={{ left: riskIndicatorPosition }}></div>
           </div>
-          {/* Here we display the structured issues */}
           <div className="analysis-issues">
             <h3>Identified Issues:</h3>
             {structuredIssues.map((issue, index) => (

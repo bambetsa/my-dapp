@@ -104,6 +104,7 @@ p, .status-message, .transaction-details {
 }
 
 .status-message {
+  min-height: 50px;  /*Ensures there's always space for the message, even when it's empty*/
   margin-top: 20px;
   padding: 10px;
   background-color: #d8e4f0; /* Light green background for positive messages */
@@ -117,6 +118,7 @@ p, .status-message, .transaction-details {
   color: #a94442; /* Dark red text for contrast */
   border: 1px solid #ebccd1;
 }
+
 
 .transaction-details {
   margin-top: 20px;
@@ -260,3 +262,17 @@ p, .status-message, .transaction-details {
 .model-button:hover {
   opacity: 0.8;
 }
+
+.model-button {
+  opacity: 0.6; /* Lower opacity by default */
+  transition: opacity 0.2s ease; /* Smooth transition for opacity change */
+}
+
+.model-button.active {
+  opacity: 1; /* Full opacity for active button */
+}
+
+.model-button:hover {
+  opacity: 0.8; /* Slightly higher opacity on hover for non-active buttons */
+}
+
