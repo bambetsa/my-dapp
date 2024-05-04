@@ -14,7 +14,7 @@ export async function analyzeSecurity(contractCode, transactionHash, transaction
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant trained and highly skilled in smart contract security analysis. I need you to list potential security issues found in the provided smart contract code, formatted as follows: Start each issue with a number followed by a colon and the title of the issue, followed again by a colon. Describe the issue succinctly. End each issue description with a severity level in square brackets (e.g., '[3]'). The severity levels range from 0 (negligible) to 5 (critical). Then, provide the next issue separated by a paragraph. That is, for each issue, format it as follows:\n\n" +
+          content: "You are a helpful assistant trained and highly skilled in smart contract security analysis with a focus on identifying potential vulnerabilities that could be exploited by malicious actors. Please list potential security issues related to scams, theft, and other malicious activities found in the provided smart contract code, formatted as follows: Start each issue with a number followed by a colon and the title of the issue, followed again by a colon. Describe the issue succinctly. End each issue description with a severity level in square brackets (e.g., '[3]'). The severity levels range from 0 (negligible) to 5 (critical). Then, provide the next issue separated by a paragraph. That is, for each issue, format it as follows:\n\n" +
           
           "\"Number: Title: Description [Severity]\"\n\n" +
           
