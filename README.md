@@ -1,3 +1,13 @@
+# .env file with API keys
+Create a .env file with your API keys.
+Make sure you have an OpenAI key and Etherscan API key:
+https://platform.openai.com/api-keys
+https://etherscan.io/myapikey
+```
+REACT_APP_ETHERSCAN_API_KEY=`YOUR_ETHERSCAN_API_KEY`
+REACT_APP_OPENAI_API_KEY=`YOUR_OPENAI_API_KEY`
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
